@@ -25,11 +25,14 @@ blockquote p,.quote-mark{font-family:"Noto Sans KR",sans-serif}
 .hero-image{object-position:center 54%}
 .hero-shade{background:linear-gradient(90deg,rgba(0,28,43,.9),rgba(0,29,45,.5) 56%,rgba(0,24,38,.25)),linear-gradient(0deg,rgba(0,24,38,.62),transparent 35%)}
 .hero-content{padding-bottom:24px}
-.hero h1{font-size:clamp(42px,4.7vw,64px);line-height:1.25}
+.hero h1{font-size:clamp(38px,4.2vw,58px);line-height:1.25}
 .hero-description{margin:20px 0 25px;font-size:17px;line-height:1.85}
 .hero .button{padding:13px 22px}
 .hero-bottom{bottom:20px;padding-top:14px}
 .strip-inner{min-height:80px}
+
+/* Keep people indistinct while preserving the atmosphere of the photographs. */
+.hero-image,.about-photo img{filter:blur(3.5px);transform:scale(1.025)}
 
 /* Two complementary worship photographs in the church introduction. */
 .about-photos{position:relative;padding:0 42px 45px 0}
@@ -42,12 +45,18 @@ blockquote p,.quote-mark{font-family:"Noto Sans KR",sans-serif}
 /* Family worship documents. */
 .home-worship{background:var(--pale)}
 .documents-heading{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:48px}
-.documents-heading>p{max-width:480px;color:var(--muted);font-size:15px}
-.document-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:38px 24px}
-.document-card{background:white;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,42,64,.07)}
+.documents-side{max-width:480px;display:flex;flex-direction:column;align-items:flex-end;gap:18px}
+.documents-side>p{color:var(--muted);font-size:15px}
+.document-controls{display:flex;gap:8px}
+.document-controls button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--line);background:white;color:var(--navy);font-size:20px;line-height:1;transition:background .2s,color .2s,border-color .2s}
+.document-controls button:hover:not(:disabled){background:var(--blue);border-color:var(--blue);color:white}
+.document-controls button:disabled{cursor:default;opacity:.35}
+.document-grid{display:flex;gap:24px;overflow-x:auto;padding:0 1px 18px;scroll-behavior:smooth;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-inline:contain}
+.document-grid::-webkit-scrollbar{display:none}
+.document-card{flex:0 0 calc((100% - 48px)/3);background:white;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,42,64,.07);scroll-snap-align:start}
 .document-preview{display:block;width:100%;padding:0;border:0;background:white;color:var(--ink);text-align:left}
-.document-cover{position:relative;display:block;overflow:hidden;aspect-ratio:1.15;background:#e8edf1}
-.document-cover img{width:100%;height:100%;object-fit:cover;object-position:right center;transition:transform .35s ease}
+.document-cover{position:relative;display:block;overflow:hidden;aspect-ratio:16/9;background:#e8edf1}
+.document-cover img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .35s ease}
 .preview-label{position:absolute;right:14px;bottom:14px;padding:7px 12px;background:rgba(0,42,64,.9);color:white;font-size:12px}
 .document-preview:hover .document-cover img{transform:scale(1.025)}
 .document-meta{display:block;padding:20px 20px 17px}
@@ -66,20 +75,23 @@ blockquote p,.quote-mark{font-family:"Noto Sans KR",sans-serif}
 .pdf-dialog-actions a{padding:10px 16px;border:1px solid var(--line);font-size:14px;font-weight:600}
 .pdf-dialog-actions a:last-child{background:var(--blue);border-color:var(--blue);color:white}
 
-@media(max-width:1000px){.document-grid{grid-template-columns:repeat(2,1fr)}.documents-heading{align-items:start;flex-direction:column;gap:18px}.header-inner nav{gap:22px;font-size:14px}}
+@media(max-width:1000px){.document-card{flex-basis:calc((100% - 24px)/2)}.documents-heading{align-items:start;flex-direction:column;gap:18px}.documents-side{max-width:none;width:100%;align-items:flex-start}.header-inner nav{gap:22px;font-size:14px}}
 @media(max-width:700px){
   .hero{min-height:480px;height:min(500px,calc(70svh - var(--header)));max-height:500px}
   .hero-content{padding-bottom:10px}
-  .hero h1{font-size:40px;line-height:1.23}
+  .hero h1{font-size:36px;line-height:1.23}
   .hero-description{margin:18px 0 21px;font-size:14px}
   .hero-bottom{display:none}
   .about-photos{padding:0 28px 32px 0}
   .about-photo-small{width:42%;border-width:5px}
-  .document-grid{grid-template-columns:1fr;gap:24px}
+  .document-grid{gap:16px;padding-bottom:14px}
+  .document-card{flex-basis:100%}
   .documents-heading{margin-bottom:30px}
-  .documents-heading>p{font-size:14px}
-  .document-cover{aspect-ratio:1.28}
+  .documents-side>p{font-size:14px}
+  .document-cover{aspect-ratio:16/9}
   .pdf-dialog{width:100%;max-width:none;height:100%;max-height:none;margin:0}
   .pdf-dialog-actions{padding:12px}
   .pdf-dialog-actions a{flex:1;text-align:center;padding:9px 8px}
 }
+
+@media(prefers-reduced-motion:reduce){.document-grid{scroll-behavior:auto}}

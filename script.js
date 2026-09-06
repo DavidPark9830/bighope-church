@@ -44,6 +44,34 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
 }
 
+const documentTrack = document.querySelector('#document-track');
+const documentPrev = document.querySelector('#document-prev');
+const documentNext = document.querySelector('#document-next');
+
+function updateDocumentControls() {
+  const maxScroll = documentTrack.scrollWidth - documentTrack.clientWidth;
+  documentPrev.disabled = documentTrack.scrollLeft <= 2;
+  documentNext.disabled = documentTrack.scrollLeft >= maxScroll - 2;
+}
+
+function scrollDocuments(direction) {
+  const card = documentTrack.querySelector('.document-card');
+  const trackStyle = getComputedStyle(documentTrack);
+  const gap = Number.parseFloat(trackStyle.columnGap || trackStyle.gap) || 0;
+  const distance = card.getBoundingClientRect().width + gap;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  documentTrack.scrollBy({
+    left: direction * distance,
+    behavior: reducedMotion ? 'auto' : 'smooth'
+  });
+}
+
+documentPrev.addEventListener('click', () => scrollDocuments(-1));
+documentNext.addEventListener('click', () => scrollDocuments(1));
+documentTrack.addEventListener('scroll', updateDocumentControls, { passive: true });
+window.addEventListener('resize', updateDocumentControls);
+requestAnimationFrame(updateDocumentControls);
+
 const pdfDialog = document.querySelector('#pdf-dialog');
 const pdfFrame = document.querySelector('#pdf-frame');
 const pdfTitle = document.querySelector('#pdf-dialog-title');
