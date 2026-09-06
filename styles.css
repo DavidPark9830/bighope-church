@@ -6,5 +6,6 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
 /* Official church wordmark, including the original lettering. */
-.brand img.church-wordmark{width:190px;height:auto;object-fit:contain}
-@media(max-width:700px){.brand img.church-wordmark{width:160px;height:auto}}
+.brand img.church-wordmark{width:300px;height:auto;object-fit:contain}
+:root{--header:112px}
+@media(max-width:700px){:root{--header:92px}.header-inner nav{top:var(--header)}.brand img.church-wordmark{width:clamp(200px,58vw,260px);height:auto}.header-inner{width:calc(100% - 28px)}.header-inner .brand{min-width:0;flex-shrink:1}.header-inner .menu-toggle{flex-shrink:0;margin-left:12px}.hero{height:calc(85svh - var(--header))}}
