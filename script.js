@@ -43,3 +43,30 @@ if ('IntersectionObserver' in window) {
   }, { rootMargin: '-20% 0px -50% 0px', threshold: 0 });
   document.querySelectorAll('main section[id]').forEach(section => observer.observe(section));
 }
+
+const pdfDialog = document.querySelector('#pdf-dialog');
+const pdfFrame = document.querySelector('#pdf-frame');
+const pdfTitle = document.querySelector('#pdf-dialog-title');
+const pdfOpen = document.querySelector('#pdf-open');
+const pdfDownload = document.querySelector('#pdf-download');
+
+document.querySelectorAll('.document-preview').forEach(button => {
+  button.addEventListener('click', () => {
+    const pdf = button.dataset.pdf;
+    const title = button.dataset.title;
+    pdfTitle.textContent = title;
+    pdfFrame.src = `${pdf}#view=FitH`;
+    pdfFrame.title = `${title} 미리보기`;
+    pdfOpen.href = pdf;
+    pdfDownload.href = pdf;
+    pdfDialog.showModal();
+  });
+});
+
+document.querySelector('#pdf-dialog-close').addEventListener('click', () => pdfDialog.close());
+pdfDialog.addEventListener('click', event => {
+  if (event.target === pdfDialog) pdfDialog.close();
+});
+pdfDialog.addEventListener('close', () => {
+  pdfFrame.removeAttribute('src');
+});

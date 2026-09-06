@@ -9,3 +9,77 @@
 .brand img.church-wordmark{width:auto;height:48px;object-fit:contain}
 :root{--header:88px}
 @media(max-width:700px){:root{--header:76px}.header-inner nav{top:var(--header)}.brand img.church-wordmark{width:auto;height:32px}.header-inner{width:calc(100% - 28px)}.header-inner .brand{min-width:0;flex-shrink:1}.header-inner .menu-toggle{flex-shrink:0;margin-left:12px}.hero{min-height:500px;height:calc(75svh - var(--header));max-height:620px}}
+
+/* Noto Sans KR is bundled so the typography is consistent on every device. */
+@font-face{font-family:"Noto Sans KR";src:url("assets/fonts/noto-sans-kr-regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Noto Sans KR";src:url("assets/fonts/noto-sans-kr-medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Noto Sans KR";src:url("assets/fonts/noto-sans-kr-semibold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Noto Sans KR";src:url("assets/fonts/noto-sans-kr-bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
+body,button{font-family:"Noto Sans KR",sans-serif}
+blockquote p,.quote-mark{font-family:"Noto Sans KR",sans-serif}
+
+/* Compact hero using the congregation photograph. */
+.header-inner nav{gap:34px}
+.header-inner nav span{margin-left:0}
+.hero{min-height:500px;height:min(570px,calc(78svh - var(--header)));max-height:570px;overflow:hidden}
+.hero-image{object-position:center 54%}
+.hero-shade{background:linear-gradient(90deg,rgba(0,28,43,.9),rgba(0,29,45,.5) 56%,rgba(0,24,38,.25)),linear-gradient(0deg,rgba(0,24,38,.62),transparent 35%)}
+.hero-content{padding-bottom:24px}
+.hero h1{font-size:clamp(42px,4.7vw,64px);line-height:1.25}
+.hero-description{margin:20px 0 25px;font-size:17px;line-height:1.85}
+.hero .button{padding:13px 22px}
+.hero-bottom{bottom:20px;padding-top:14px}
+.strip-inner{min-height:80px}
+
+/* Two complementary worship photographs in the church introduction. */
+.about-photos{position:relative;padding:0 42px 45px 0}
+.about-photo{min-height:0}
+.about-photo-main{aspect-ratio:1.38}
+.about-photo-main:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#002a40b8)}
+.about-photo-small{position:absolute;width:44%;aspect-ratio:1.15;right:0;bottom:0;border:7px solid white}
+.about-photo-small:after{display:none}
+
+/* Family worship documents. */
+.home-worship{background:var(--pale)}
+.documents-heading{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:48px}
+.documents-heading>p{max-width:480px;color:var(--muted);font-size:15px}
+.document-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:38px 24px}
+.document-card{background:white;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,42,64,.07)}
+.document-preview{display:block;width:100%;padding:0;border:0;background:white;color:var(--ink);text-align:left}
+.document-cover{position:relative;display:block;overflow:hidden;aspect-ratio:1.15;background:#e8edf1}
+.document-cover img{width:100%;height:100%;object-fit:cover;object-position:right center;transition:transform .35s ease}
+.preview-label{position:absolute;right:14px;bottom:14px;padding:7px 12px;background:rgba(0,42,64,.9);color:white;font-size:12px}
+.document-preview:hover .document-cover img{transform:scale(1.025)}
+.document-meta{display:block;padding:20px 20px 17px}
+.document-meta small{display:block;color:var(--blue);font-size:12px;margin-bottom:7px}
+.document-meta strong{display:block;font-size:18px;font-weight:600;line-height:1.5}
+.document-card>a{display:flex;justify-content:space-between;align-items:center;margin:0 20px;padding:13px 0 16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.document-card>a:after{content:"↓";color:var(--blue);font-size:16px}
+.pdf-dialog{width:min(1040px,calc(100% - 40px));height:min(88vh,900px);padding:0;border:0;box-shadow:0 24px 80px rgba(0,20,34,.35);background:white;color:var(--ink)}
+.pdf-dialog::backdrop{background:rgba(0,25,40,.72);backdrop-filter:blur(3px)}
+.pdf-dialog[open]{display:grid;grid-template-rows:auto 1fr auto}
+.pdf-dialog-header,.pdf-dialog-actions{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.pdf-dialog-header h2{font-size:18px;font-weight:600}
+.pdf-dialog-header button{width:38px;height:38px;border:0;background:var(--pale);color:var(--navy);font-size:28px;line-height:1}
+.pdf-dialog iframe{display:block;width:100%;height:100%;border:0;background:#e6edf2}
+.pdf-dialog-actions{justify-content:flex-end;gap:12px;border:0;border-top:1px solid var(--line)}
+.pdf-dialog-actions a{padding:10px 16px;border:1px solid var(--line);font-size:14px;font-weight:600}
+.pdf-dialog-actions a:last-child{background:var(--blue);border-color:var(--blue);color:white}
+
+@media(max-width:1000px){.document-grid{grid-template-columns:repeat(2,1fr)}.documents-heading{align-items:start;flex-direction:column;gap:18px}.header-inner nav{gap:22px;font-size:14px}}
+@media(max-width:700px){
+  .hero{min-height:480px;height:min(500px,calc(70svh - var(--header)));max-height:500px}
+  .hero-content{padding-bottom:10px}
+  .hero h1{font-size:40px;line-height:1.23}
+  .hero-description{margin:18px 0 21px;font-size:14px}
+  .hero-bottom{display:none}
+  .about-photos{padding:0 28px 32px 0}
+  .about-photo-small{width:42%;border-width:5px}
+  .document-grid{grid-template-columns:1fr;gap:24px}
+  .documents-heading{margin-bottom:30px}
+  .documents-heading>p{font-size:14px}
+  .document-cover{aspect-ratio:1.28}
+  .pdf-dialog{width:100%;max-width:none;height:100%;max-height:none;margin:0}
+  .pdf-dialog-actions{padding:12px}
+  .pdf-dialog-actions a{flex:1;text-align:center;padding:9px 8px}
+}
