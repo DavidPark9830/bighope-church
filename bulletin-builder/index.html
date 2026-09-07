@@ -441,10 +441,16 @@ try{const saved=localStorage.getItem('bigHopeBulletinBuilderV13')||localStorage.
 window.addEventListener('resize',()=>requestAnimationFrame(alignFlowColumns));window.addEventListener('beforeprint',alignFlowColumns);
 const ACCESS_SESSION_KEY='bigHopeBulletinBuilderAccess';
 const ACCESS_HASH='4fd29677be8ebb4af0b23d288897ddd8df22b74ea34e4b03927d07f4e3a6feaf';
+const ACCESS_FALLBACK_HASH='f946732e';
 async function hashAccessCode(value){
-  const bytes=new TextEncoder().encode(value);
-  const digest=await crypto.subtle.digest('SHA-256',bytes);
-  return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  if(window.crypto&&window.crypto.subtle){
+    const bytes=new TextEncoder().encode(value);
+    const digest=await window.crypto.subtle.digest('SHA-256',bytes);
+    return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }
+  let hash=2166136261;
+  for(const char of value){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}
+  return (hash>>>0).toString(16).padStart(8,'0');
 }
 function openBuilder(){
   $('#authGate').hidden=true;
@@ -458,7 +464,8 @@ $('#authForm').addEventListener('submit',async event=>{
   submit.disabled=true;
   $('#authError').textContent='';
   try{
-    if(await hashAccessCode(input.value.trim())===ACCESS_HASH){
+    const candidateHash=await hashAccessCode(input.value.trim());
+    if(candidateHash===ACCESS_HASH||candidateHash===ACCESS_FALLBACK_HASH){
       sessionStorage.setItem(ACCESS_SESSION_KEY,'granted');
       input.value='';
       openBuilder();
