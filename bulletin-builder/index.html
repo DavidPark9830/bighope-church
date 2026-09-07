@@ -434,7 +434,7 @@ function render(){
   $('#coverPanel').classList.toggle('no-photo',state.coverPhotoMode==='solid');const o=state.overlay/100;$('#coverShade').style.background=`linear-gradient(165deg,rgba(51,102,204,${o*.75}),rgba(51,102,204,${o*.2}) 48%,rgba(0,42,64,${o*1.15}))`;
   checkOverflow();
 }
-try{const saved=localStorage.getItem('bigHopeBulletinBuilderV13')||localStorage.getItem('bigHopeBulletinBuilderV10')||localStorage.getItem('bigHopeBulletinBuilderV9')||localStorage.getItem('bigHopeBulletinBuilderV8')||localStorage.getItem('bigHopeBulletinBuilderV7')||localStorage.getItem('bigHopeBulletinBuilderV6')||localStorage.getItem('bigHopeBulletinBuilderV5')||localStorage.getItem('bigHopeBulletinBuilderV3');if(saved){const x=JSON.parse(saved);state={...state,...x};}}catch(e){}
+try{const saved=localStorage.getItem('bigHopeBulletinBuilderV13')||localStorage.getItem('bigHopeBulletinBuilderV10')||localStorage.getItem('bigHopeBulletinBuilderV9')||localStorage.getItem('bigHopeBulletinBuilderV8')||localStorage.getItem('bigHopeBulletinBuilderV7')||localStorage.getItem('bigHopeBulletinBuilderV6')||localStorage.getItem('bigHopeBulletinBuilderV5')||localStorage.getItem('bigHopeBulletinBuilderV3');if(saved){const x=JSON.parse(saved);if(typeof x.bgSrc==='string'&&x.bgSrc.length===1928211)x.bgSrc=defaultState.bgSrc;state={...state,...x};}}catch(e){}
 window.addEventListener('resize',()=>requestAnimationFrame(alignFlowColumns));window.addEventListener('beforeprint',alignFlowColumns);
 const ACCESS_HASH='4fd29677be8ebb4af0b23d288897ddd8df22b74ea34e4b03927d07f4e3a6feaf';
 const ACCESS_FALLBACK_HASH='f946732e';
