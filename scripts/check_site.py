@@ -19,14 +19,22 @@ class SiteParser(HTMLParser):
             if key in attrs:
                 self.links.append(attrs[key])
 
-page = SiteParser()
-page.feed((ROOT / 'index.html').read_text())
-for link in page.links:
-    url = urlsplit(link)
-    if url.scheme or url.netloc:
-        continue
-    if url.path:
-        assert (ROOT / unquote(url.path)).is_file(), f'Missing file: {link}'
-    elif url.fragment:
-        assert url.fragment in page.ids, f'Missing section: {link}'
-print(f'OK: {len(page.links)} links/assets and {len(page.ids)} unique IDs checked.')
+pages = sorted(ROOT.rglob('*.html'))
+link_count = 0
+id_count = 0
+for html_file in pages:
+    page = SiteParser()
+    page.feed(html_file.read_text())
+    link_count += len(page.links)
+    id_count += len(page.ids)
+    for link in page.links:
+        url = urlsplit(link)
+        if url.scheme or url.netloc:
+            continue
+        if url.path:
+            target = (html_file.parent / unquote(url.path)).resolve()
+            exists = target.is_file() or (target.is_dir() and (target / 'index.html').is_file())
+            assert exists, f'Missing file from {html_file.relative_to(ROOT)}: {link}'
+        elif url.fragment:
+            assert url.fragment in page.ids, f'Missing section in {html_file.relative_to(ROOT)}: {link}'
+print(f'OK: {len(pages)} HTML files, {link_count} links/assets and {id_count} unique IDs checked.')

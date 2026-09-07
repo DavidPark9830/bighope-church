@@ -64,6 +64,10 @@ blockquote p,.quote-mark{font-family:"Noto Sans KR",sans-serif}
 .document-meta strong{display:block;font-size:18px;font-weight:600;line-height:1.5}
 .document-card>a{display:flex;justify-content:space-between;align-items:center;margin:0 20px;padding:13px 0 16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .document-card>a:after{content:"↓";color:var(--blue);font-size:16px}
+.bulletin-builder-link{display:flex;justify-content:flex-end;margin-top:8px}
+.bulletin-builder-link a{padding:8px 0;border-bottom:1px solid #91aab9;color:var(--muted);font-size:12px;font-weight:500}
+.bulletin-builder-link a:hover{color:var(--blue);border-color:var(--blue)}
+.bulletin-builder-link span{margin-left:8px;color:var(--blue)}
 .pdf-dialog{width:min(1040px,calc(100% - 40px));height:min(88vh,900px);padding:0;border:0;box-shadow:0 24px 80px rgba(0,20,34,.35);background:white;color:var(--ink)}
 .pdf-dialog::backdrop{background:rgba(0,25,40,.72);backdrop-filter:blur(3px)}
 .pdf-dialog[open]{display:grid;grid-template-rows:auto 1fr auto}

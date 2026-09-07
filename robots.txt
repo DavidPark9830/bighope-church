@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /bulletin-builder/
+
+Sitemap: https://bighope.co.kr/sitemap.xml
