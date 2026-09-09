@@ -325,7 +325,7 @@ const defaultState={
     {label:'찬송',detail:'495장 내 영혼이 은총 입어',leader:'다같이'},
     {label:'주기도문',detail:'',leader:'다같이'}
   ],
-  overallScale:106,coverMetaSize:10.5,bodySize:10.9,lineHeight:1.68,overlay:10,coverPhotoMode:'photo',bgSrc:'assets/cover-background.jpg'
+  overallScale:106,coverMetaSize:10.5,bodySize:10.9,lineHeight:1.68,overlay:10,coverPhotoMode:'photo',bgSrc:'assets/cross-hill-background.jpg'
 };
 let state=JSON.parse(JSON.stringify(defaultState));
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -409,7 +409,7 @@ function render(){
   $('#coverPanel').classList.toggle('no-photo',state.coverPhotoMode==='solid');const o=state.overlay/100;$('#coverShade').style.background=`linear-gradient(165deg,rgba(51,102,204,${o*.75}),rgba(51,102,204,${o*.2}) 48%,rgba(0,42,64,${o*1.15}))`;
   checkOverflow();
 }
-try{const saved=localStorage.getItem('bigHopeBulletinBuilderV13')||localStorage.getItem('bigHopeBulletinBuilderV10')||localStorage.getItem('bigHopeBulletinBuilderV9')||localStorage.getItem('bigHopeBulletinBuilderV8')||localStorage.getItem('bigHopeBulletinBuilderV7')||localStorage.getItem('bigHopeBulletinBuilderV6')||localStorage.getItem('bigHopeBulletinBuilderV5')||localStorage.getItem('bigHopeBulletinBuilderV3');if(saved){const x=JSON.parse(saved);if(typeof x.bgSrc==='string'&&x.bgSrc.length===1928211)x.bgSrc=defaultState.bgSrc;state={...state,...x};}}catch(e){}
+try{const saved=localStorage.getItem('bigHopeBulletinBuilderV13')||localStorage.getItem('bigHopeBulletinBuilderV10')||localStorage.getItem('bigHopeBulletinBuilderV9')||localStorage.getItem('bigHopeBulletinBuilderV8')||localStorage.getItem('bigHopeBulletinBuilderV7')||localStorage.getItem('bigHopeBulletinBuilderV6')||localStorage.getItem('bigHopeBulletinBuilderV5')||localStorage.getItem('bigHopeBulletinBuilderV3');if(saved){const x=JSON.parse(saved);if(typeof x.bgSrc==='string'&&(x.bgSrc.length===1928211||x.bgSrc==='assets/cover-background.jpg'))x.bgSrc=defaultState.bgSrc;state={...state,...x};}}catch(e){}
 window.addEventListener('resize',()=>requestAnimationFrame(alignFlowColumns));window.addEventListener('beforeprint',alignFlowColumns);
 syncEditor();render();$('#zoomRange').dispatchEvent(new Event('input'));
 </script>
