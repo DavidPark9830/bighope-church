@@ -73,7 +73,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .order-list,.section-list{display:grid;gap:8px;margin-top:8px}
 .order-item,.section-item{border:1px solid #e4e7ec;border-radius:10px;padding:8px;background:#fbfcfe}
 .order-item{display:grid;grid-template-columns:1fr 1.65fr .8fr;gap:8px;align-items:center}
-.order-item input{padding:6px}
+.order-item input{min-width:0;font-size:11px}
 .order-item .row-actions{grid-column:1/-1;display:flex;gap:6px;justify-content:flex-end}
 .section-item textarea{min-height:120px}
 .upload{position:relative;overflow:hidden}.upload input{position:absolute;inset:0;opacity:0;cursor:pointer}
@@ -348,7 +348,7 @@ function flowHtml(){
 }
 function renderOrderEditor(listId,key){
   const root=$('#'+listId);
-  root.innerHTML=state[key].map((o,i)=>`<div class="order-item" data-i="${i}"><input data-k="label" value="${esc(o.label)}" placeholder="항목"><input data-k="detail" value="${esc(o.detail)}" placeholder="내용"><input data-k="leader" value="${esc(o.leader)}" placeholder="담당"><div class="row-actions"><button class="btn small" data-move="up">↑</button><button class="btn small" data-move="down">↓</button><button class="btn small danger" data-delete>삭제</button></div></div>`).join('');
+  root.innerHTML=state[key].map((o,i)=>`<div class="order-item" data-i="${i}"><input type="text" data-k="label" value="${esc(o.label)}" placeholder="항목"><input type="text" data-k="detail" value="${esc(o.detail)}" placeholder="내용"><input type="text" data-k="leader" value="${esc(o.leader)}" placeholder="담당"><div class="row-actions"><button class="btn small" data-move="up">↑</button><button class="btn small" data-move="down">↓</button><button class="btn small danger" data-delete>삭제</button></div></div>`).join('');
   root.querySelectorAll('.order-item').forEach(el=>{const i=+el.dataset.i;el.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',()=>{state[key][i][inp.dataset.k]=inp.value;render();}));el.querySelector('[data-delete]').addEventListener('click',()=>{state[key].splice(i,1);renderEditors();render();});el.querySelector('[data-move="up"]').addEventListener('click',()=>{if(i>0){[state[key][i-1],state[key][i]]=[state[key][i],state[key][i-1]];renderEditors();render();}});el.querySelector('[data-move="down"]').addEventListener('click',()=>{if(i<state[key].length-1){[state[key][i+1],state[key][i]]=[state[key][i],state[key][i+1]];renderEditors();render();}});});
 }
 function renderSectionsEditor(){
